@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +24,38 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full min-h-screen`}
       >
-        {children}
+        <div className="relative w-full h-full">
+          {/* Gradient overlay: transparent at bottom, grey at top */}
+          <div
+            className="pointer-events-none absolute top-0 left-0 w-full h-full z-20"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(31,41,55,0.5) 0%, rgba(31,41,55,0) 40%, rgba(31,41,55,0.5) 60%, rgba(31,41,55,0.7) 80%, rgba(31,41,55,0.8) 85%, rgba(31,41,55,0.95) 90%, rgba(31,41,55,1) 100%)",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute top-full left-0 w-full h-full z-20"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(31,41,55, 1) 0%, rgba(31,41,55, 1) 25%, rgba(31,41,55, 0.4) 45%, rgba(31,41,55, 0.3) 100%)",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute top-[200%] left-0 w-full h-[15%] z-20"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(31,41,55, 0.3) 0%, rgba(31,41,55, 0.4) 25%)",
+            }}
+          />
+          <div className="absolute flex top-0 left-0 z-20 w-full h-[10%]">
+            <Navbar />
+          </div>
+          <div className="relative w-full h-full">{children}</div>
+        </div>
       </body>
     </html>
   );
